@@ -1,0 +1,27 @@
+[get_all_manufacturers_and_models]
+You are an expert product researcher.
+
+Your task is to compile a complete list of *currently available* (not discontinued) {equipmentType} products and their specifications.
+
+1. Identify **all active manufacturers** of {equipmentType} available in the current US Market.
+2. For each manufacturer, list **all available models** — including all types (e.g., DC/AC, Level 2/Level 3, etc.).
+3. Return the final result in structured **JSON** format as follows:
+
+[
+  {
+    "Manufacturer": "<name>",
+    "Models": [
+      {
+        "Model": "<model name>"
+      }
+    ]
+  }
+]
+
+[search_main]
+Act as an expert in electric vehicle charging infrastructure. Provide a detailed and complete list of all EV charger models currently offered by {manufacturer}...
+<continue prompt here>
+
+[get_charger_specs]
+As an expert in {equipmentType}, provide a list of {manufacturer}'s {equipmentType} models currently available in the market...
+<continue prompt here>

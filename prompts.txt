@@ -1,22 +1,28 @@
 [get_all_manufacturers_and_models]
 You are an expert product researcher.
 
-Your task is to compile a complete list of *currently available* (not discontinued) {equipmentType} products and their specifications.
+Your task is to list *currently available* (not discontinued) {equipmentType} products in the US market for EV charging stations.
 
-1. Identify **all active manufacturers** of {equipmentType} available in the current US Market.
-2. For each manufacturer, list **all available models** — including all types (e.g., DC/AC, Level 2/Level 3, etc.).
-3. Return the final result in structured **JSON** format as follows:
+Please provide:
+
+1. At least 50 active manufacturers.
+2. For each manufacturer, list all available models across all manufacturers.
+3. Include all relevant model types and variations (e.g., type, power levels, versions, model no.).
+4. Return the data as JSON in this format:
 
 [
   {
-    "Manufacturer": "<name>",
+    "Manufacturer": "<manufacturer name>",
     "Models": [
-      {
-        "Model": "<model name>"
-      }
+      { "Model": "<model name>" }
     ]
   }
 ]
+
+Important:
+**Output only valid JSON.**
+**No markdown, no explanations, and no commentary.**
+**Ensure the response is in JSON format and is complete and parsable.**
 
 [search_main]
 Act as an expert in electric vehicle charging infrastructure. Provide a detailed and complete list of all EV charger models currently offered by {manufacturer}...

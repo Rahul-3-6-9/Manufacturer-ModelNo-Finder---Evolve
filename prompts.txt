@@ -1,33 +1,132 @@
 [get_all_manufacturers_and_models]
-You are an expert product researcher.
+You are a highly accurate and verified web scraper specializing in U.S. electrical infrastructure.
 
-Your task is to list *currently available* (not discontinued) {equipmentType} products in the US market for EV charging stations.
+Provide a strictly verified, structured JSON listing of **commercial-grade {equipmentType} models** currently available in the United States.
 
-Please provide:
+Requirements:
 
-1. At least 50 active manufacturers.
-2. For each manufacturer, list all available models across all manufacturers.
-3. Include all relevant model types and variations (e.g., type, power levels, versions, model no.).
-4. Return the data as JSON in this format:
+- Include only products that are:
+  - Actively sold or listed in the U.S.
+  - Designed for commercial or industrial use (e.g., public infrastructure, businesses, fleets, utilities)
+  - Offered by recognized manufacturers
 
-[
-  {
-    "Manufacturer": "<manufacturer name>",
-    "Models": [
-      { "Model": "<model name>" }
+- Organize by subtypes or logical categories based on equipmentType:
+  - For EV Chargers: use "Level 2" and "Level 3"
+  - For Transformers: use "Dry-Type", "Liquid-Filled"
+  - For Electrical Panels: use "Main Panels", "Sub Panels", "Meter Panels"
+  - For other equipment, use appropriate subtype labels based on industry standards
+
+- For each model, include:
+  - model_name: Official model name
+  - specification: {
+      "voltage": "...",
+      "current": "...",
+      "phase": "..."
+    }
+
+Strictly exclude:
+1. Residential-only equipment
+2. Battery systems or storage (e.g., Tesla Powerwall)
+3. EV vehicle models (e.g., Ford Lightning)
+4. Deprecated, fictional, or unlisted products
+5. Non-U.S. products or prototypes
+
+Output format (JSON only, no explanations):
+
+json
+{
+  "equipmentType": "{equipmentType}",
+  "subtypes": [
+    {
+      "subtype": "Category Name",
+      "manufacturers": [
+        {
+          "name": "Manufacturer Name",
+          "models": [
+            {
+              "model_name": "Model Name",
+              "specification": {
+                "voltage": "...",
+                "current": "...",
+                "phase": "..."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+[get_all_manufacturers]
+You are a highly accurate web scraper in the U.S. electrical infrastructure market.
+
+Provide a strictly verified JSON list of **commercial-grade {equipmentType} manufacturers** who currently sell products for public, fleet, or business use in the United States.
+
+Include only manufacturers who:
+- Actively sell {equipmentType} in the U.S.
+- Offer verified, commercial or industrial-grade products
+- Are known for distribution in the public/commercial domain
+
+Strictly exclude:
+1. Residential-only manufacturers
+2. Battery storage companies (e.g., Tesla Powerwall)
+3. EV vehicle-only companies (unless they sell standalone commercial-grade equipment)
+4. Defunct, unverified, or fictional names
+
+Output format (JSON only, no explanations):
+
+json
+{
+  "equipmentType": "{equipmentType}",
+  "manufacturers": [
+    "Manufacturer Name 1",
+    "Manufacturer Name 2",
+    "Manufacturer Name 3"
+  ]
+}
+
+
+[get_models_by_manufacturer]
+You are a highly accurate and comprehensive web scraper specializing in the U.S. electric infrastructure and EV charging market.
+
+Your task is to return a strictly verified and exhaustive JSON list of **all commercial-grade {equipmentType} models** currently offered by the given {manufacturer} for public, fleet, or business use in the United States.
+
+Requirements:
+
+- Only include products that are:
+  - Manufactured by {manufacturer}
+  - Commercially available in the U.S.
+  - Intended for commercial or industrial use (not residential)
+  - Listed under the equipment type: {equipmentType}
+
+- Group the models by subtype or logical categories:
+  - For EV Chargers: "Level 2", "Level 3"
+  - For Transformers: "Dry-Type", "Liquid-Filled"
+  - For Electrical Panels: "Main Breaker Panels", "Main Lug only panels", "Transfer Switch Panel".
+
+Strictly exclude:
+
+1. Residential-only products
+2. Battery storage systems (e.g., Tesla Powerwall)
+3. EV vehicle models (e.g., Tesla Model S)
+4. Deprecated, fictional, or unverified products
+5. Products not actively listed or sold in the U.S.
+
+Output format (JSON only, no explanations):
+
+json
+{
+  "equipmentType": "{equipmentType}",
+  "manufacturer": "{Manufacturer Name}",
+  "models": {
+    "{Subtype/Category 1}": [
+      "Model Name 1",
+      "Model Name 2"
+    ],
+    "{Subtype/Category 2}": [
+      "Model Name 3",
+      "Model Name 4"
     ]
   }
-]
-
-Important:
-**Output only valid JSON.**
-**No markdown, no explanations, and no commentary.**
-**Ensure the response is in JSON format and is complete and parsable.**
-
-[search_main]
-Act as an expert in electric vehicle charging infrastructure. Provide a detailed and complete list of all EV charger models currently offered by {manufacturer}...
-<continue prompt here>
-
-[get_charger_specs]
-As an expert in {equipmentType}, provide a list of {manufacturer}'s {equipmentType} models currently available in the market...
-<continue prompt here>
+}

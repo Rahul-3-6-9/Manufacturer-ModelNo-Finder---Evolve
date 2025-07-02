@@ -2,6 +2,8 @@ import time
 import requests
 import json
 import re
+from google import genai
+
 
 def load_prompt_from_file(section):
     with open("prompts.txt", "r", encoding="utf-8") as f:
@@ -12,6 +14,7 @@ def load_prompt_from_file(section):
         return match.group(1).strip()
     else:
         raise ValueError(f"Prompt section [{section}] not found in prompts.txt")
+
 
 # def query_ollama(prompt, model="phi3"):
 #     url = "http://localhost:11434/api/chat"
@@ -34,8 +37,6 @@ def load_prompt_from_file(section):
 #         print("Error talking to Ollama:", e)
 #         return "Failed."
 
-from google import genai
-
 
 def genaiGeneratedModels(query):
     # The client gets the API key from the environment variable `GEMINI_API_KEY`.
@@ -45,6 +46,7 @@ def genaiGeneratedModels(query):
         model="gemini-2.5-flash", contents=query
     )
     return (response.text)
+
 
 def get_all_manufacturers_and_models(equipmentType):
     try:
@@ -115,13 +117,15 @@ def get_all_manufacturers(equipmentType):
         print(f"❌ Failed to parse or save JSON: {e}")
         return None
 
-def get_models_by_manufacturer(equipmentType, manufacturer):
+
+def get_models_by_manufacturer(equipmentType: str, manufacturer: str, types: list[str]):
     try:
         prompt_template = load_prompt_from_file("get_models_by_manufacturer")
         print("Raw prompt template:", repr(prompt_template))  # Debug
         # Replace {equipmentType} in the prompt
         prompt = prompt_template.replace("{equipmentType}", equipmentType)
-        prompt = prompt.replace("{manufacturer}", manufacturer)
+        prompt1 = prompt.replace("{manufacturer}", manufacturer)
+        prompt = prompt1.replace("{types}", str(types))
         print("Formatted prompt:", prompt)  # Debug
 
         # response = query_ollama(prompt)
@@ -153,6 +157,6 @@ def get_models_by_manufacturer(equipmentType, manufacturer):
 
 if __name__ == "__main__":
     start_time = time.perf_counter()
-    get_models_by_manufacturer("Electrical Panel", "Schneider Electric")
+    get_models_by_manufacturer("EV Charger", "ABB", ["Level 2", "Level 3"])
     end_time = time.perf_counter()
     print(f"Execution time: {end_time - start_time:.2f} seconds")

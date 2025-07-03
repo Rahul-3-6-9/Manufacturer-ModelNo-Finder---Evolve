@@ -3,24 +3,22 @@ from ImageURL import ImageURL
 from SpecSheetURL import SpecSheetURL
 import sqlite3
 
-# equipments = {"Equipment": ["EV Charger", "Electrical Panel", "Transformer", "Utility Meter", "AC Disconnect"],
-#               "Communication Module": ["Switch", "Router", "Access Point", "Wireless Bridge", "Network Extender"],
-#               "Accessory": ["Bollard", "Pedestal"]}
-# equipmentSubType = {"EV Charger": ["Level 2", "Level 3"],
-#                    "Electrical Panel": ["Main Breaker Pane", "Main Lug Only"],
-#                    "Transformer": ["Dry-Type", "Liquid-Filled"],
-#                    "Utility Meter": [],
-#                    "AC Disconnect": ["Fused", "Non Fused"],
-#                    "Wireless Bridge": ["Point-to-Point Bridge", "Point-to-Multipoint Bridge", "Mesh Bridge"],
-#                    "Network Extender": ["WiFi Repeater", "Range Extender", "Powerline Adapter with WiFi"],
-#                    "Access Point": ["Standalone Access Point", "Controller-Based Access Point", "PoE Access Point", "Dual-Band Access Point"],
-#                    "Router": ["Wired Router", "Wireless Router", "Core Router", "Edge Router"],
-#                    "Switch": ["Unmanaged Switch", "Managed Switch", "PoE Switch"],
-#                    "Bollard": [],
-#                    "Pedestal" :[]}
+equipments = {"Equipment": ["EV Charger", "Electrical Panel", "Transformer", "Utility Meter", "AC Disconnect"],
+              "Communication Module": ["Switch", "Router", "Access Point", "Wireless Bridge", "Network Extender"],
+              "Accessory": ["Bollard", "Pedestal"]}
+equipmentSubType = {"EV Charger": ["Level 2", "Level 3"],
+                   "Electrical Panel": ["Main Breaker Pane", "Main Lug Only"],
+                   "Transformer": ["Dry-Type", "Liquid-Filled"],
+                   "Utility Meter": [],
+                   "AC Disconnect": ["Fused", "Non Fused"],
+                   "Wireless Bridge": ["Point-to-Point Bridge", "Point-to-Multipoint Bridge", "Mesh Bridge"],
+                   "Network Extender": ["WiFi Repeater", "Range Extender", "Powerline Adapter with WiFi"],
+                   "Access Point": ["Standalone Access Point", "Controller-Based Access Point", "PoE Access Point", "Dual-Band Access Point"],
+                   "Router": ["Wired Router", "Wireless Router", "Core Router", "Edge Router"],
+                   "Switch": ["Unmanaged Switch", "Managed Switch", "PoE Switch"],
+                   "Bollard": [],
+                   "Pedestal" :[]}
 
-equipments = {"Equipment": ["EV Charger"]}
-equipmentSubType = {"EV Charger": ["Level 2"]}
 
 def debug_execute(cursor, query, description):
     try:
@@ -29,11 +27,10 @@ def debug_execute(cursor, query, description):
     except sqlite3.Error as e:
         print(f"❌ Error in {description}: {e}")
 
-print("🔌 Connecting to database...")
-conn = sqlite3.connect("equipment.db")
-cursor = conn.cursor()
-
 def equipmentDBlistUpdater():
+    print("🔌 Connecting to database...")
+    conn = sqlite3.connect("equipment.db")
+    cursor = conn.cursor()
     global equipments, equipmentSubType
     conn = sqlite3.connect("equipment.db")
     cursor = conn.cursor()

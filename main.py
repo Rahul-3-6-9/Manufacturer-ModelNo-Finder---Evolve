@@ -2,11 +2,11 @@ from fastapi import FastAPI
 import time
 import datetime
 import ManufacturerList
-from ImageURL import ImageURL
-from SpecSheetURL import SpecSheetURL
-from schemas import EquipmentRequest, EquipmentRequest1, EquipmentRequest2
+from .ImageURL import ImageURL
+from .SpecSheetURL import SpecSheetURL
+from .schemas import EquipmentRequest, EquipmentRequest1, EquipmentRequest2
 from apscheduler.schedulers.background import BackgroundScheduler
-from equipmentListUpdater import equipmentDBlistUpdater
+from .equipmentListUpdater import equipmentDBlistUpdater
 
 apps = FastAPI()
 starttime = time.perf_counter()
